@@ -2,7 +2,7 @@ class Transaction {
   final String? id;
   final String title;
   final DateTime date;
-  final double? value;
+  final String? value;
 
   Transaction(
       {required this.date,

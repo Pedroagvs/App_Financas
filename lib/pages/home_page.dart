@@ -1,4 +1,4 @@
-import 'package:financas_pessoais/components/transaction_list.dart';
+import 'package:financas_pessoais/components/transaction_user.dart';
 import 'package:financas_pessoais/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -13,14 +13,14 @@ class Home extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(Routes.TrasactionFORM);
+              Navigator.of(context).pushNamed(Routes.TransactionFORM);
             },
             icon: Icon(Icons.add),
           ),
         ],
       ),
       body: Container(
-        child: TrasactionList(),
+        child: TransactionUser(),
       ),
     );
   }
