@@ -1,7 +1,6 @@
 import 'package:financas_pessoais/components/accounts/accounts_form.dart';
 import 'package:financas_pessoais/components/transactions/transaction_stepper.dart';
 import 'package:financas_pessoais/pages/home_page.dart';
-
 import 'package:financas_pessoais/provider/transactions.dart';
 import 'package:financas_pessoais/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +24,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        theme: ThemeData.light(),
+        theme: ThemeData(primarySwatch: Colors.purple),
         routes: {
           Routes.HOME: (_) => Home(),
-          Routes.StepperTransaction: (_) => StepperTransaction(),
+          Routes.TransactionStepper: (_) => TransactionStepper(),
           Routes.AccountFORM: (_) => AccountsForm(),
         },
       ),

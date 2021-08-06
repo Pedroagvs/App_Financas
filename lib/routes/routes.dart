@@ -1,5 +1,5 @@
 class Routes {
   static const HOME = '/';
-  static const StepperTransaction = 'steppertransaction';
+  static const TransactionStepper = 'transactionSteper';
   static const AccountFORM = 'accountform';
 }

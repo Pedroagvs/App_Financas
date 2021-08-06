@@ -1,6 +1,6 @@
 class Account {
   String? title;
-  String? value;
-  String? id;
+  double? value;
+  int? id;
   Account({required this.title, required this.value});
 }

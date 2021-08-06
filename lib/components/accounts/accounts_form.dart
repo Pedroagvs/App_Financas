@@ -11,11 +11,8 @@ class AccountsForm extends StatefulWidget {
 
 class _AccountsFormState extends State<AccountsForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final titleController = TextEditingController();
-
   final initValueController = TextEditingController();
-
   _submitForm() {
     var newAcc = Provider.of<Accounts>(context, listen: false);
     if (titleController.text.isNotEmpty &&
@@ -25,7 +22,7 @@ class _AccountsFormState extends State<AccountsForm> {
         setState(() {
           newAcc.addAccount(Account(
             title: titleController.text,
-            value: initValueController.text,
+            value: double.tryParse(initValueController.text)!,
           ));
         });
       }
@@ -37,86 +34,101 @@ class _AccountsFormState extends State<AccountsForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.tealAccent[50],
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: double.infinity,
-              height: 270,
-              child: Form(
-                key: _formKey,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Nova Conta",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            maxLength: 20,
-                            controller: titleController,
-                            keyboardType: TextInputType.name,
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(labelText: 'Título'),
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            //initialValue: '0.00',
-                            controller: initValueController,
-                            keyboardType: TextInputType.number,
-                            textInputAction: TextInputAction.done,
-                            decoration:
-                                InputDecoration(labelText: 'Valor (R\$)'),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          width: 170,
-                          height: 35,
-                          child: ElevatedButton(
-                            onPressed: _submitForm,
-                            child: Text(
-                              'Criar',
-                              style: TextStyle(fontSize: 18),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 70,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 270,
+                  child: Form(
+                    key: _formKey,
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Nova Conta",
+                              style: TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold),
                             ),
-                          ),
+                            Container(
+                              child: TextFormField(
+                                maxLength: 20,
+                                controller: titleController,
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,
+                                decoration:
+                                    InputDecoration(labelText: 'Título'),
+                              ),
+                            ),
+                            Container(
+                              child: TextFormField(
+                                //initialValue: '0.00',
+                                controller: initValueController,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.done,
+                                decoration:
+                                    InputDecoration(labelText: 'Valor (R\$)'),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              width: 170,
+                              height: 35,
+                              child: ElevatedButton(
+                                onPressed: _submitForm,
+                                child: Text(
+                                  'Criar',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+              SizedBox(
+                height: 30,
+                child: Text(
+                  "Lista de Contas",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                height: 220,
+                width: double.infinity,
+                child: Card(child: AccountList()),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                child: ElevatedButton(
+                  onPressed: Navigator.of(context).pop,
+                  child: Text(
+                    "Voltar",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              )
+            ],
           ),
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            color: Colors.teal,
-            height: 220,
-            width: double.infinity,
-            child: AccountList(),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            child: ElevatedButton(
-              onPressed: Navigator.of(context).pop,
-              child: Text('Voltar'),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }

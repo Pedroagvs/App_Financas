@@ -1,5 +1,6 @@
 import 'package:financas_pessoais/provider/transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +17,48 @@ class _TransactionListState extends State<TransactionList> {
   }
 
   @override
+  void initState() {
+    initializeDateFormatting('pt_BR');
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
     listTransaction = _loadList();
     super.didChangeDependencies();
+  }
+
+  iconType(String title) {
+    if (title.toLowerCase() == 'dinheiro') {
+      return Icon(
+        Icons.money,
+        color: Colors.lightBlue,
+        size: 30,
+      );
+    }
+    if (title.toLowerCase() == 'credito' || title.toLowerCase() == 'debito') {
+      return Icon(
+        Icons.credit_card,
+        color: Colors.lightBlue,
+        size: 30,
+      );
+    }
+    if (title.toLowerCase() == 'debito') {
+      return Icon(
+        Icons.credit_card,
+        color: Colors.lightBlue,
+        size: 30,
+      );
+    } else {
+      return ImageIcon(
+        AssetImage(
+          'assets/logo-pix-icone-1024.png',
+          bundle: null,
+        ),
+        size: 30,
+        color: Colors.lightBlue,
+      );
+    }
   }
 
   @override
@@ -32,7 +72,7 @@ class _TransactionListState extends State<TransactionList> {
             width: double.infinity,
             height: 80,
             child: Card(
-              color: Colors.purple[50],
+              color: Colors.brown[50],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               child: ListTile(
@@ -49,8 +89,10 @@ class _TransactionListState extends State<TransactionList> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.purple),
+                          fontSize: 17,
+                          color:
+                              Provider.of<Transactions>(context, listen: false)
+                                  .colorValue(listTransaction[index].value!)),
                     ),
                   ),
                 ),
@@ -59,21 +101,19 @@ class _TransactionListState extends State<TransactionList> {
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.lightBlueAccent),
+                      color: Colors.deepPurple),
                 ),
                 subtitle: Text(
-                  DateFormat(" dd/MM/yy hh:mm")
-                      .format(listTransaction[index].date),
+                  DateFormat(" dd/MM/yy").format(listTransaction[index].date),
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                trailing: Icon(
-                  Icons.credit_card,
-                  color: Colors.green,
-                  size: 30,
-                ),
+                trailing: iconType(
+                    Provider.of<Transactions>(context, listen: false)
+                        .listTransactions[index]
+                        .typeofpayment!),
               ),
             ),
           ),
