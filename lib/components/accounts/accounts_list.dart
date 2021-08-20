@@ -43,7 +43,7 @@ class _AccountListState extends State<AccountList> {
                           color: Colors.purple),
                     ),
                     trailing: Text(
-                      "R\$" + listAccounts[index].value!.toString(),
+                      "R\$" + listAccounts[index].value!.toStringAsFixed(2),
                       style: TextStyle(fontSize: 16, color: Colors.deepPurple),
                       textAlign: TextAlign.center,
                     ),

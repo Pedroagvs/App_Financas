@@ -13,6 +13,7 @@ class _AccountsFormState extends State<AccountsForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final initValueController = TextEditingController();
+
   _submitForm() {
     var newAcc = Provider.of<Accounts>(context, listen: false);
     if (titleController.text.isNotEmpty &&
@@ -33,7 +34,6 @@ class _AccountsFormState extends State<AccountsForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.tealAccent[50],
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -69,11 +69,15 @@ class _AccountsFormState extends State<AccountsForm> {
                                 textInputAction: TextInputAction.next,
                                 decoration:
                                     InputDecoration(labelText: 'Título'),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return "Campo obrigatorio";
+                                  }
+                                },
                               ),
                             ),
                             Container(
                               child: TextFormField(
-                                //initialValue: '0.00',
                                 controller: initValueController,
                                 keyboardType: TextInputType.number,
                                 textInputAction: TextInputAction.done,

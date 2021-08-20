@@ -24,10 +24,9 @@ class _TransactionStepperState extends State<TransactionStepper> {
     tr.addTransaction(Transaction(
         id: Random().nextInt(100).toString(),
         title: tr.getTitleForm,
-        date: DateTime.now(),
+        date: tr.getDateForm,
         value: tr.getValueForm,
         typeofpayment: tr.getTypeForm));
-
     acc.updateAccount(acc.getIndexForm, tr.getValueForm);
   }
 
@@ -98,7 +97,7 @@ class _TransactionStepperState extends State<TransactionStepper> {
                   Navigator.of(context).pop();
                 },
                 child: Text(
-                  'Cancelar',
+                  'Voltar',
                   style: TextStyle(fontSize: 24),
                 ),
               ),

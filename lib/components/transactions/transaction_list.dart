@@ -16,6 +16,12 @@ class _TransactionListState extends State<TransactionList> {
     return tr;
   }
 
+  _removeTransaction(String id) {
+    setState(() {
+      Provider.of<Transactions>(context, listen: false).deleteTransaction(id);
+    });
+  }
+
   @override
   void initState() {
     initializeDateFormatting('pt_BR');
@@ -26,39 +32,6 @@ class _TransactionListState extends State<TransactionList> {
   void didChangeDependencies() {
     listTransaction = _loadList();
     super.didChangeDependencies();
-  }
-
-  iconType(String title) {
-    if (title.toLowerCase() == 'dinheiro') {
-      return Icon(
-        Icons.money,
-        color: Colors.lightBlue,
-        size: 30,
-      );
-    }
-    if (title.toLowerCase() == 'credito' || title.toLowerCase() == 'debito') {
-      return Icon(
-        Icons.credit_card,
-        color: Colors.lightBlue,
-        size: 30,
-      );
-    }
-    if (title.toLowerCase() == 'debito') {
-      return Icon(
-        Icons.credit_card,
-        color: Colors.lightBlue,
-        size: 30,
-      );
-    } else {
-      return ImageIcon(
-        AssetImage(
-          'assets/logo-pix-icone-1024.png',
-          bundle: null,
-        ),
-        size: 30,
-        color: Colors.lightBlue,
-      );
-    }
   }
 
   @override
@@ -85,7 +58,8 @@ class _TransactionListState extends State<TransactionList> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "R\$" + ' ' "${listTransaction[index].value!}",
+                      "R\$" +
+                          ' ' "${listTransaction[index].value.toStringAsFixed(2)!}",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -110,10 +84,12 @@ class _TransactionListState extends State<TransactionList> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                trailing: iconType(
-                    Provider.of<Transactions>(context, listen: false)
-                        .listTransactions[index]
-                        .typeofpayment!),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  color: Colors.orange,
+                  onPressed: () =>
+                      _removeTransaction(listTransaction[index].id),
+                ),
               ),
             ),
           ),

@@ -5,6 +5,7 @@ class Transactions extends ChangeNotifier {
   String? titleTemp;
   double? valueTemp;
   String? typeTemp;
+  DateTime? date;
 
   List<Transaction> _transaction = [];
 
@@ -18,7 +19,7 @@ class Transactions extends ChangeNotifier {
   }
 
   deleteTransaction(String id) {
-    _transaction.remove(id);
+    _transaction.removeWhere((tr) => tr.id == id);
     notifyListeners();
   }
 
@@ -42,6 +43,14 @@ class Transactions extends ChangeNotifier {
 
   set setTypeForm(String type) {
     typeTemp = type;
+  }
+
+  set setDateForm(DateTime newDate) {
+    date = newDate;
+  }
+
+  DateTime get getDateForm {
+    return date!;
   }
 
   double get getValueForm {

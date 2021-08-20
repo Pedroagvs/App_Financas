@@ -1,3 +1,4 @@
+import 'package:financas_pessoais/components/transactions/transaction_chart.dart';
 import 'package:financas_pessoais/components/transactions/transaction_list.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +15,10 @@ class _TrasactionUserState extends State<TransactionUser> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            child: Text("Grafico"),
-          ),
+          Chart(),
           Container(
             width: double.infinity,
-            height: 275,
+            height: 390,
             child: TransactionList(),
           ),
         ],

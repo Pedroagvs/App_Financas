@@ -50,10 +50,19 @@ class Home extends StatelessWidget {
       body: Container(
         child: TransactionUser(),
       ),
-      floatingActionButton: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () =>
-            Navigator.of(context).pushNamed(Routes.TransactionStepper),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: Icon(
+              Icons.add_circle_sharp,
+              size: 50,
+              color: Theme.of(context).primaryColor,
+            ),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(Routes.TransactionStepper),
+          ),
+        ],
       ),
     );
   }
